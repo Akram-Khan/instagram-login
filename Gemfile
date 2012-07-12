@@ -10,7 +10,7 @@ gem 'therubyracer'
 gem 'json'
 gem 'haml'
 gem 'devise'
-gem 'omniauth'
+gem 'omniauth-oauth2', '1.0.3'
 gem 'omniauth-instagram'
 
 
