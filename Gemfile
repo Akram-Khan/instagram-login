@@ -5,8 +5,6 @@ gem 'rails', '3.2.6'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'sqlite3'
-gem 'mysql2'
 gem 'execjs'
 gem 'therubyracer'
 gem 'json'
@@ -26,6 +24,14 @@ group :assets do
   # gem 'therubyracer', :platforms => :ruby
 
   gem 'uglifier', '>= 1.0.3'
+end
+
+group :production do
+	gem 'pg'
+end
+
+group :development do 
+	gem 'mysql2'
 end
 
 gem 'jquery-rails'
