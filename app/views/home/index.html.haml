@@ -4,7 +4,8 @@
 	=link_to "Signup", new_user_registration_path
 	=link_to "Login", new_user_session_path
 
-	=link_to "Login with Instagram", '/auth/instagram'
+	=link_to "Login with Instagram", user_omniauth_authorize_path(:instagram)
+
 -else 
 	%h2="Welcome #{current_user.email}"
 	=link_to "Logout", logout_path

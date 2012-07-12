@@ -10,8 +10,8 @@ gem 'therubyracer'
 gem 'json'
 gem 'haml'
 gem 'devise'
-gem 'omniauth-oauth2', '1.0.3'
 gem 'omniauth-instagram'
+gem 'omniauth-oauth2', '1.0.3'
 
 
 # Gems used only for assets and not required

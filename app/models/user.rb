@@ -2,28 +2,32 @@ class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
+
+
+  devise :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :username
   # attr_accessible :title, :body
 
-  def self.create_with_omniauth(auth)
-    create! do |user|
-      user.provider = auth["provider"]
-      user.uid = auth["uid"]
-      user.name = auth["user_info"]["name"]
-      user.name = auth["user_info"][:name] if user.name.nil?
-      user.email = auth["user_info"]["email"]
-      user.email = auth["extra"]["user_hash"]["email"] if auth["extra"] and auth["extra"]["user_hash"] and user.email.nil?
-      user.nickname = auth["user_info"]["nickname"]
-      user.bio = auth["user_info"]["description"][0..139] if auth["user_info"]["description"]
-      user.image_url = auth["user_info"]["image"]
-      #user.locale = I18n.locale.to_s
-      user.locale = :en
+  validates :username, :uniqueness => true, :length => { :within => 4..24}
 
+ def self.find_for_instagram_oauth(access_token, signed_in_resource=nil)
+    data = access_token.info
+   
+    logger.debug access_token.info.nickname
+    if user = User.where(:username => data.nickname).first
+      user
+    #else # Create a user with a stub password. 
+      #User.create!(:email => data.email, :password => Devise.friendly_token[0,20], :firstname => "stub", :lastname => "stub") 
     end
   end
-  
+
+  def email_required?
+    false
+  end
+
+
 end

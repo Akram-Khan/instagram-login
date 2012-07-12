@@ -1,11 +1,8 @@
 InstagramLogin::Application.routes.draw do
-  devise_for :users do
+  devise_for :users, :controllers => {:omniauth_callbacks => "users/omniauth_callbacks"} do
     get "logout", :to => "devise/sessions#destroy"
   end
 
-  post "/auth" => "sessions#auth", :as => :auth
-  match "/auth/:provider/callback" => "sessions#create"
-  match "/auth/failure" => "sessions#failure"
 
   match "/user_signed_in" => "home#user_signed_in"
 

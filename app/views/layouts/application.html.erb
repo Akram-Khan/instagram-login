@@ -8,6 +8,10 @@
 </head>
 <body>
 
+<%flash.each do |key,value|%>
+	<div class="flash <%=key%> alert-box eight columns"><%=value%></div>
+<%end%>
+
 <%= yield %>
 
 </body>
